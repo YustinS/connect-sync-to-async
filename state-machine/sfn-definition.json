@@ -1,0 +1,20 @@
+{
+    "Comment": "SFN Machine to facilitiate 'async' calls to a sync function",
+    "StartAt": "EnrichInput",
+    "States": {
+      "EnrichInput" : {
+        "Type" : "Pass",
+        "Parameters" : {
+          "id.$"   : "$$.Execution.Id",
+          "name.$" : "$$.Execution.Name"
+        },
+        "ResultPath" : "$.execution",
+        "Next"       : "AsyncStep"
+      },
+      "AsyncStep" : {
+        "Type"     : "Task",
+        "Resource" : "{{AWS LAMBDA ARN}}",
+        "End"      : true
+      }
+    }
+  }
